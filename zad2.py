@@ -8,7 +8,7 @@ from geopy import distance
 
 def get_closest_neighbour(name, lat, lon, users):
     neighbor = ""
-    min_dist = 64800000
+    min_dist = 13000
     for user in users:
         try:
             user_lat = float(user["address"]["geo"]["lat"])
@@ -84,7 +84,7 @@ def main():
         print("Closest living neighbours: ")
         distances = get_distances(users_json)
         for k, v in distances.items():
-            print(k + "lives the closest to " + v)
+            print(k + " lives the closest to " + v)
 
 
 if __name__ == "__main__":
