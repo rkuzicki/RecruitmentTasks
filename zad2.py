@@ -6,7 +6,7 @@ from collections import defaultdict
 from geopy import distance
 
 
-def get_closest_neighbour(name, lat, lon, users):
+def get_closest_neighbor(name, lat, lon, users):
     neighbor = ""
     min_dist = 13000
     for user in users:
@@ -61,7 +61,7 @@ def get_distances(users):
             lon = float(user["address"]["geo"]["lng"])
             lat = float(user["address"]["geo"]["lat"])
             name = user["name"]
-            shortest_distances[name] = get_closest_neighbour(name, lat, lon, users)
+            shortest_distances[name] = get_closest_neighbor(name, lat, lon, users)
     except KeyError as e:
         print("Couldn't check distances for users. No value for key " + str(e))
     return shortest_distances
@@ -81,7 +81,7 @@ def main():
         print("Duplicates: ")
         print(get_duplicate_posts(posts_json))
         print("---------------------")
-        print("Closest living neighbours: ")
+        print("Closest living neighbors: ")
         distances = get_distances(users_json)
         for k, v in distances.items():
             print(k + " lives the closest to " + v)
