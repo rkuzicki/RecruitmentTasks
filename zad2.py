@@ -71,7 +71,7 @@ def main():
                 ur.urlopen("https://jsonplaceholder.typicode.com/users") as users_url:
             posts_json = json.loads(posts_url.read().decode())
             users_json = json.loads(users_url.read().decode())
-    except (urllib.error.URLError, ValueError):
+    except (urllib.error.URLError, ValueError, json.decoder.JSONDecodeError):
         print("Cannot download or decode JSON")
     else:
         print("\n".join(get_user_posts(users_json, posts_json)))

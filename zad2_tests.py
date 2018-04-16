@@ -4,7 +4,7 @@ from zad2 import get_user_posts, get_duplicate_posts, get_closest_neighbor, get_
 
 class TestJsonMethods(unittest.TestCase):
 
-    #few structures created to immitate JSONs used in this exercise
+    # few structures created to immitate JSONs used in this exercise
     posts = [{'userId': 1, 'title': 'title1'},
              {'userId': 2, 'title': 'title2'},
              {'userId': 2, 'title': 'title1'}]
