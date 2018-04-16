@@ -8,7 +8,7 @@ from geopy import distance
 
 def get_closest_neighbor(name, lat, lon, users):
     neighbor = ""
-    min_dist = 13000
+    min_dist = 25000
     for user in users:
         try:
             user_lat = float(user["address"]["geo"]["lat"])
