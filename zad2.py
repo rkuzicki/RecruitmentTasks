@@ -14,9 +14,9 @@ def get_closest_neighbor(name, lat, lon, users):
             user_lat = float(user["address"]["geo"]["lat"])
             user_lon = float(user["address"]["geo"]["lng"])
             dist = distance.distance((lat, lon), (user_lat, user_lon))
-            if dist < min_dist and user["name"] != name:
+            if dist < min_dist and user["username"] != name:
                 min_dist = dist
-                neighbor = user["name"]
+                neighbor = user["username"]
         except (KeyError, ValueError):
             continue
     return neighbor
@@ -29,7 +29,7 @@ def get_user_posts(users, posts):
     try:
         for user in users:
             posts_per_user[user["id"]] = 0
-            user_names[user["id"]] = user["name"]
+            user_names[user["id"]] = user["username"]
         for post in posts:
             posts_per_user[post["userId"]] += 1
         for k, v in posts_per_user.items():
@@ -40,17 +40,15 @@ def get_user_posts(users, posts):
 
 
 def get_duplicate_posts(posts):
-    posts_count = {}
-    posts_count = defaultdict(lambda: 0, posts_count)
+    posts_count = defaultdict(int)
     res_array = []
-    for post in posts:
-        try:
-            counter = posts_count[post["title"]]
-            counter += 1
-            if counter > 1:
+    try:
+        for post in posts:
+            posts_count[post["title"]] += 1
+            if posts_count[post["title"]] > 1:
                 res_array.append(post["title"])
-        except KeyError:
-            continue
+    except KeyError as e:
+        print("Can't get info about duplicate titles. No value for key " + str(e))
     return res_array
 
 
@@ -60,7 +58,7 @@ def get_distances(users):
         for user in users:
             lon = float(user["address"]["geo"]["lng"])
             lat = float(user["address"]["geo"]["lat"])
-            name = user["name"]
+            name = user["username"]
             shortest_distances[name] = get_closest_neighbor(name, lat, lon, users)
     except KeyError as e:
         print("Couldn't check distances for users. No value for key " + str(e))
