@@ -13,7 +13,9 @@ class TestJsonMethods(unittest.TestCase):
     users_wrong = [{'id': 1,  'usesrname': 'Bret',  'address': {'geo': {'lat': '37.3159', 'lng': '81.1496'}}},
                    {'id': 2, 'username': 'Calo', 'address': {'geo': {'lat': '1.0', 'lng': '15.15'}}},
                    {'id': 3, 'username': 'Calos', 'address': {'geo': {'lat': '-0.1', 'lng': '10.3'}}}]
-
+    posts_wrong = [{'userId': 1, 'titlek': 'title1'},
+                   {'userId': 2, 'title': 'title2'},
+                   {'userId': 2, 'title': 'title1'}]
     def test_user_posts(self):
         res_array = ["User Bret napisal 1 postow.", "User Calo napisal 2 postow.", "User Calos napisal 0 postow."]
         self.assertEqual(get_user_posts(self.users, self.posts), res_array)
@@ -22,6 +24,7 @@ class TestJsonMethods(unittest.TestCase):
 
     def test_duplicate_posts(self):
         self.assertEqual(get_duplicate_posts(self.posts), ['title1'])
+        self.assertEqual(get_duplicate_posts(self.posts_wrong), [])
 
     def test_closest_neighbor(self):
         self.assertEqual(get_closest_neighbor("Bret", 37.3159, 81.1496, self.users), "Calo")
