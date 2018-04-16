@@ -4,6 +4,7 @@ from zad2 import get_user_posts, get_duplicate_posts, get_closest_neighbor, get_
 
 class TestJsonMethods(unittest.TestCase):
 
+    #few structures created to immitate JSONs used in this exercise
     posts = [{'userId': 1, 'title': 'title1'},
              {'userId': 2, 'title': 'title2'},
              {'userId': 2, 'title': 'title1'}]
@@ -16,6 +17,7 @@ class TestJsonMethods(unittest.TestCase):
     posts_wrong = [{'userId': 1, 'titlek': 'title1'},
                    {'userId': 2, 'title': 'title2'},
                    {'userId': 2, 'title': 'title1'}]
+
     def test_user_posts(self):
         res_array = ["User Bret napisal 1 postow.", "User Calo napisal 2 postow.", "User Calos napisal 0 postow."]
         self.assertEqual(get_user_posts(self.users, self.posts), res_array)
