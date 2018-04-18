@@ -23,13 +23,10 @@ def get_closest_neighbor(name, lat, lon, users):
 
 
 def get_user_posts(users, posts):
-    posts_per_user = {}
-    user_names = {}
     res_array = []
     try:
-        for user in users:
-            posts_per_user[user["id"]] = 0
-            user_names[user["id"]] = user["username"]
+        posts_per_user = {user["id"]: 0 for user in users}
+        user_names = {user["id"]: user["username"] for user in users}
         for post in posts:
             posts_per_user[post["userId"]] += 1
         for k, v in posts_per_user.items():
